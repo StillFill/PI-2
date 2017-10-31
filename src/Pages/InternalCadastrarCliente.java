@@ -8,6 +8,7 @@ package Pages;
 import connection.MockCliente;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -18,6 +19,9 @@ import model.bean.Cliente;
  * @author Ana Carolina
  */
 public class InternalCadastrarCliente extends javax.swing.JInternalFrame {
+
+    boolean editando = false;
+    boolean clicked = false;
 
     /**
      * Creates new form InternalCliente
@@ -69,6 +73,7 @@ public class InternalCadastrarCliente extends javax.swing.JInternalFrame {
         lblEstadoCliente = new javax.swing.JLabel();
         comboEstadoCliente = new javax.swing.JComboBox<>();
         btnCadastrarCliente = new javax.swing.JButton();
+        btnEditarCliente = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Cadastrar Cliente");
@@ -188,7 +193,7 @@ public class InternalCadastrarCliente extends javax.swing.JInternalFrame {
                     .addComponent(comboTipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboSexoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSexoCliente))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelPessoaFisicaCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Pessoa Física"));
@@ -236,7 +241,7 @@ public class InternalCadastrarCliente extends javax.swing.JInternalFrame {
                 .addGroup(painelPessoaFisicaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRazaoSocialCliente)
                     .addComponent(txtRazaoSocialCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         painelEnderecoCli.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço"));
@@ -298,14 +303,14 @@ public class InternalCadastrarCliente extends javax.swing.JInternalFrame {
                         .addComponent(txtCidadeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblEstadoCliente)
-                        .addGap(18, 18, 18)
-                        .addComponent(comboEstadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboEstadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(6, 6, 6))
         );
         painelEnderecoCliLayout.setVerticalGroup(
             painelEnderecoCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEnderecoCliLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(painelEnderecoCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCEPCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCEPCliente))
@@ -338,6 +343,14 @@ public class InternalCadastrarCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        btnEditarCliente.setVisible(false);
+        btnEditarCliente.setText("Editar");
+        btnEditarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -347,7 +360,11 @@ public class InternalCadastrarCliente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelDadosCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelEnderecoCli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCadastrarCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEditarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCadastrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(painelPessoaFisicaCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -360,9 +377,11 @@ public class InternalCadastrarCliente extends javax.swing.JInternalFrame {
                 .addComponent(painelPessoaFisicaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelEnderecoCli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCadastrarCliente)
-                .addGap(36, 36, 36))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastrarCliente)
+                    .addComponent(btnEditarCliente))
+                .addGap(31, 31, 31))
         );
 
         pack();
@@ -409,9 +428,9 @@ public class InternalCadastrarCliente extends javax.swing.JInternalFrame {
         String phoneNumber = txtTelCliente.getText();
         String email = txtEmailCliente.getText();
         String type = (String) comboTipoCliente.getSelectedItem();
-        String gender  = (String) comboSexoCliente.getSelectedItem();
+        String gender = (String) comboSexoCliente.getSelectedItem();
         String documentNumber = "";
-        if(type.equals("Física")){
+        if (type.equals("Física")) {
             documentNumber = txtCPFCliente.getText();
         } else {
             //documentNumber = txtCNPJCliente.getText();
@@ -425,33 +444,63 @@ public class InternalCadastrarCliente extends javax.swing.JInternalFrame {
         String complement = txtComplementoCliente.getText();
         String state = (String) comboEstadoCliente.getSelectedItem();
         MockCliente mock = new MockCliente();
-        mock.inserir(new Cliente
-        (
-            name, 
-            birthday, 
-            phoneNumber, 
-            email, 
-            type, 
-            gender, 
-            documentNumber, 
-            razaoSocial, 
-            cep, 
-            adress,
-            adressNumber,
-            neighborHood,
-            city, 
-            complement, 
-            state
+        String id = "";
+        if(clicked){
+            id = mock.acharId(documentNumber);
+            clicked = false;
+        }
+        mock.inserir(new Cliente(
+                id,
+                name,
+                birthday,
+                phoneNumber,
+                email,
+                type,
+                gender,
+                documentNumber,
+                razaoSocial,
+                cep,
+                adress,
+                adressNumber,
+                neighborHood,
+                city,
+                complement,
+                state
         ));
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void txtNumeroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroClienteActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtNumeroClienteActionPerformed
+
+    private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
+        if (!clicked) {
+            txtNomeCliente.setEnabled(true);
+            txtNascimentoCliente.setEnabled(true);
+            txtTelCliente.setEnabled(true);
+            txtEmailCliente.setEnabled(true);
+            comboTipoCliente.setEnabled(true);
+            comboSexoCliente.setEnabled(true);
+            txtCPFCliente.setEnabled(true);
+            txtRazaoSocialCliente.setEnabled(true);
+            txtCEPCliente.setEnabled(true);
+            txtEnderecoCliente.setEnabled(true);
+            txtNumeroCliente.setEnabled(true);
+            txtBairroCliente.setEnabled(true);
+            txtCidadeCliente.setEnabled(true);
+            txtComplementoCliente.setEnabled(true);
+            comboEstadoCliente.setEnabled(true);
+            btnCadastrarCliente.setText("Salvar");
+            btnEditarCliente.setVisible(false);
+            btnCadastrarCliente.setVisible(true);
+            clicked = true;
+        }
+    }//GEN-LAST:event_btnEditarClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrarCliente;
+    public javax.swing.JButton btnCadastrarCliente;
+    public javax.swing.JButton btnEditarCliente;
     public javax.swing.JComboBox<String> comboEstadoCliente;
     public javax.swing.JComboBox<String> comboSexoCliente;
     public javax.swing.JComboBox<String> comboTipoCliente;

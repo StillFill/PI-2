@@ -5,10 +5,14 @@
  */
 package Pages;
 
+import connection.MockComanda;
 import connection.MockVenda;
 import connection.MockVenda;
+import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+import model.bean.Comanda;
 import model.bean.Venda;
 import model.bean.Venda;
 
@@ -17,6 +21,8 @@ import model.bean.Venda;
  * @author Ana Carolina
  */
 public class InternalFormVender extends javax.swing.JInternalFrame {
+
+    static ArrayList<Venda> comandaVendas = new ArrayList<Venda>();
 
     /**
      * Creates new form InternalFormVender
@@ -41,7 +47,6 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
         lblDescricao = new javax.swing.JLabel();
         lblQuantidade = new javax.swing.JLabel();
         spinnerQuantidade = new javax.swing.JSpinner();
-        txtPreco = new javax.swing.JTextField();
         lblPreco = new javax.swing.JLabel();
         lblDesconto = new javax.swing.JLabel();
         txtDesconto = new javax.swing.JTextField();
@@ -55,6 +60,7 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
         lblCPFCliente = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        txtPreco = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Efetuar Venda");
@@ -75,9 +81,6 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
 
         spinnerQuantidade.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
-        txtPreco.setEditable(false);
-        txtPreco.setEnabled(false);
-
         lblPreco.setText("Preço:");
 
         lblDesconto.setText("Desconto:");
@@ -92,10 +95,7 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
         tblProdutosVenda.setAutoCreateRowSorter(true);
         tblProdutosVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Descrição", "Quantidade", "Preço", "Desconto"
@@ -148,6 +148,12 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
             }
         });
 
+        txtPreco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelVendaLayout = new javax.swing.GroupLayout(painelVenda);
         painelVenda.setLayout(painelVendaLayout);
         painelVendaLayout.setHorizontalGroup(
@@ -186,7 +192,7 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelVendaLayout.createSequentialGroup()
                                         .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
                                         .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lblQuantidade)
@@ -228,12 +234,12 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPreco)
-                    .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDesconto)
-                    .addComponent(txtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(btnAddProduto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEfetuarVenda)
@@ -278,10 +284,20 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
                 quantity,
                 discount
         ));
+        DefaultTableModel model = (DefaultTableModel) tblProdutosVenda.getModel();
+        model.addRow(new Object[]{id, description, price, quantity, discount});
+
+        comandaVendas.add(new Venda(
+                id,
+                description,
+                price,
+                quantity,
+                discount));
     }//GEN-LAST:event_btnAddProdutoActionPerformed
 
     private void btnEfetuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfetuarVendaActionPerformed
-
+        MockComanda mock = new MockComanda();
+        mock.inserir(new Comanda(comandaVendas));
     }//GEN-LAST:event_btnEfetuarVendaActionPerformed
 
     private void txtCPFClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFClienteActionPerformed
@@ -303,6 +319,10 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
         tela.openFrameInCenter(produto);
         produto.show();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrecoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

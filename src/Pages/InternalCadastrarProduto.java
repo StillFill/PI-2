@@ -31,8 +31,6 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         painelCadastrarProduto = new javax.swing.JPanel();
-        lblCodigoProduto = new javax.swing.JLabel();
-        txtCodigoProduto = new javax.swing.JTextField();
         txtDescricaoProduto = new javax.swing.JTextField();
         lblDescricaoProduto = new javax.swing.JLabel();
         lblQuantProduto = new javax.swing.JLabel();
@@ -73,11 +71,6 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
         setTitle("Cadastrar Novo Produto");
 
         painelCadastrarProduto.setBorder(javax.swing.BorderFactory.createTitledBorder("Novo Produto"));
-
-        lblCodigoProduto.setText("Código:");
-
-        txtCodigoProduto.setEditable(false);
-        txtCodigoProduto.setFocusable(false);
 
         txtDescricaoProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,10 +218,6 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
                                     .addGroup(painelCadastrarProdutoLayout.createSequentialGroup()
                                         .addGroup(painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(painelCadastrarProdutoLayout.createSequentialGroup()
-                                                .addComponent(lblCodigoProduto)
-                                                .addGap(31, 31, 31)
-                                                .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(painelCadastrarProdutoLayout.createSequentialGroup()
                                                 .addComponent(lblDescricaoProduto)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -289,12 +278,6 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
             painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCadastrarProdutoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelCadastrarProdutoLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(lblCodigoProduto))
-                    .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDescricaoProduto)
                     .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -424,7 +407,6 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_comboGeneroProdutoActionPerformed
 
     private void btnCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutoActionPerformed
-        String code = txtCodigoProduto.getText();
         String description = txtDescricaoProduto.getText();
         int quantity = (Integer) spinnerQuantProduto.getValue();
         String type = (String) comboTipoProduto.getSelectedItem();
@@ -461,7 +443,6 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
 
         MockProduto mock = new MockProduto();
         mock.inserir(new Produto(
-                code,
                 description,
                 quantity,
                 type,
@@ -492,7 +473,6 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
     public javax.swing.JComboBox<String> comboMovimentoProduto;
     public javax.swing.JComboBox<String> comboTipoProduto;
     private javax.swing.JLabel lblAlturaProduto;
-    private javax.swing.JLabel lblCodigoProduto;
     private javax.swing.JLabel lblColecaoProduto;
     private javax.swing.JLabel lblDescricaoProduto;
     private javax.swing.JLabel lblGarantiaProduto;
@@ -514,7 +494,6 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
     public javax.swing.JSpinner spinnerQuantProduto;
     public javax.swing.JSpinner spinnerTamanhoProduto;
     public javax.swing.JTextField txtAlturaProduto;
-    private javax.swing.JTextField txtCodigoProduto;
     public javax.swing.JTextField txtDescricaoProduto;
     public javax.swing.JTextField txtEspessuraProduto;
     public javax.swing.JTextField txtLarguraProduto;
