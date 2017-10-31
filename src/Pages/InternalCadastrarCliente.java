@@ -8,6 +8,7 @@ package Pages;
 import connection.MockCliente;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;

@@ -15,6 +15,7 @@ import model.bean.Cliente;
  * @author Ana Carolina
  */
 public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
+
     String tipo, id;
     Cliente a;
 
@@ -150,9 +151,9 @@ public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
         tipo = (String) tipoConsultarCliente.getSelectedItem();
         id = txtPesquisarCliente.getText();
         ArrayList<Cliente> resultado = mock.consultar(tipo, id);
-
+        DefaultTableModel model = (DefaultTableModel) tabelaResultadoCliente.getModel();
+        model.setRowCount(0);
         for (int i = 0; i < resultado.size(); i++) {
-            DefaultTableModel model = (DefaultTableModel) tabelaResultadoCliente.getModel();
             model.addRow(new Object[]{resultado.get(i).name, resultado.get(i).phoneNumber, resultado.get(i).email, resultado.get(i).state});
         }
 
@@ -171,18 +172,16 @@ public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
 
         MockCliente mock = new MockCliente();
         ArrayList<Cliente> resultado = mock.consultar(tipo, id);
-        
+
         Cliente editing = resultado.get(0);
-        
+
         for (int i = 0; i < resultado.size(); i++) {
-            if(resultado.get(i).name == nome && resultado.get(i).phoneNumber == phone){
+            if (resultado.get(i).name == nome && resultado.get(i).phoneNumber == phone) {
                 editing = resultado.get(i);
             }
         }
 
         InternalCadastrarCliente cliente = new InternalCadastrarCliente();
-
-
 
         this.getDesktopPane().add(cliente);
         this.dispose();
@@ -203,7 +202,7 @@ public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
         cliente.txtCidadeCliente.setText(editing.city);
         cliente.txtComplementoCliente.setText(editing.complement);
         cliente.comboEstadoCliente.setSelectedItem(editing.state);
-        
+
         cliente.txtNomeCliente.setEnabled(false);
         cliente.txtNascimentoCliente.setEnabled(false);
         cliente.txtTelCliente.setEnabled(false);
