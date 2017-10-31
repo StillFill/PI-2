@@ -12,8 +12,13 @@ public class MockComanda {
     public void inserir(Comanda comanda) {
         comanda.comandaId = Integer.toString(f);
         comandas.add(comanda);
-        JOptionPane.showMessageDialog(null, "Venda realizada com sucesso");
         f++;
+        int anterior = comandas.size();
+        if (comandas.size() > anterior) {
+            JOptionPane.showMessageDialog(null, "Venda cadastrado com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar a venda!");
+        }
     }
 
     public void editar(Comanda venda) {
@@ -29,16 +34,5 @@ public class MockComanda {
             }
         }
         return null;
-    }
-
-    public void mostrar() {
-        for (int i = 0; i < comandas.get(0).vendas.size(); i++) {
-            System.out.println("---------------------------");
-            System.out.println(comandas.get(0).vendas.get(i).description);
-            System.out.println(comandas.get(0).vendas.get(i).discount);
-            System.out.println(comandas.get(0).comandaId);
-            System.out.println(comandas.get(0).vendas.get(i).quantity);
-            System.out.println("---------------------------");
-        }
     }
 }

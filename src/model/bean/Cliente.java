@@ -13,14 +13,16 @@ public class Cliente {
     public String razaoSocial;
     public String cep;
     public String adress;
+    public String adressNumber;
+    public String neighborHood;
     public String city;
     public String complement;
     public String state;
-    public int clienteId = 0;
+    public int id = 0;
     
     InternalCadastrarCliente t = new InternalCadastrarCliente();
     
-    public Cliente(String name, String birthday, String phoneNumber, String email, String type, String genedr, String documentNumber, String razaoSocial, String cep, String adress, String city, String complemente, String state){
+    public Cliente(String name, String birthday, String phoneNumber, String email, String type, String genedr, String documentNumber, String razaoSocial, String cep, String adress, String adressNumber, String neighborHood, String city, String complement, String state){
         this.name = name;
         this.birthday = birthday;
         this.phoneNumber = phoneNumber;
@@ -34,6 +36,24 @@ public class Cliente {
         this.city = city;
         this.complement = complement;
         this.state = state;
+        this.adressNumber = adressNumber;
+        this.neighborHood = neighborHood;
+    }
+    
+    public String getAdressNumber() {
+        return this.adressNumber;
+    }
+
+    public void setAdressNumber(String name) {
+        this.adressNumber = adressNumber;
+    }
+    
+    public String getNeighborHood() {
+        return this.neighborHood;
+    }
+
+    public void setNeighborHood(String name) {
+        this.neighborHood = neighborHood;
     }
     
     public String getName() {

@@ -252,11 +252,10 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelCadastrarProdutoLayout.createSequentialGroup()
                                                     .addGroup(painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                         .addComponent(comboGeneroProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(painelCadastrarProdutoLayout.createSequentialGroup()
                                                             .addComponent(lblPulseiraProduto)
-                                                            .addGroup(painelCadastrarProdutoLayout.createSequentialGroup()
-                                                                .addGap(72, 72, 72)
-                                                                .addComponent(comboCorPulseiraProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                            .addGap(22, 22, 22)
+                                                            .addComponent(comboCorPulseiraProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                     .addGroup(painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(lblMostradorProduto)
@@ -273,7 +272,7 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
                                 .addComponent(lblPrecoProduto1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtPedraProduto)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(20, Short.MAX_VALUE))
                     .addGroup(painelCadastrarProdutoLayout.createSequentialGroup()
                         .addGroup(painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblMovimentoPulseira)
@@ -425,34 +424,38 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_comboGeneroProdutoActionPerformed
 
     private void btnCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProdutoActionPerformed
-        System.out.println("chegou aqui");
         String code = txtCodigoProduto.getText();
-        System.out.println("chegou aqui");
         String description = txtDescricaoProduto.getText();
-        System.out.println("chegou aqui");
         int quantity = (Integer) spinnerQuantProduto.getValue();
-        System.out.println("chegou aqui");
         String type = (String) comboTipoProduto.getSelectedItem();
-        System.out.println("chegou aqui");
         String material = txtMaterialProduto.getText();
-        System.out.println("chegou aqui");
         String stone = txtPedraProduto.getText();
-        System.out.println("chegou aqui");
         double height = 0;
         double price = 0;
+        int size = 0;
+        int ensure = 0;
+        double width = 0;
         if (txtAlturaProduto.getText() != null && !txtAlturaProduto.getText().trim().equals("")) {
             height = Double.parseDouble(txtAlturaProduto.getText());
         }
         if (txtPrecoProduto.getText() != null && !txtPrecoProduto.getText().trim().equals("")) {
             price = Double.parseDouble(txtPrecoProduto.getText());
         }
-        int size = (Integer) spinnerTamanhoProduto.getValue();
+        if(spinnerTamanhoProduto.getValue() != null){
+            size = (Integer) spinnerTamanhoProduto.getValue();
+        }
+        if(spinnerGarantiaProduto.getValue() != null){
+           ensure = (Integer) spinnerGarantiaProduto.getValue(); 
+        }
+        if(txtLarguraProduto.getText() != null && !txtLarguraProduto.getText().trim().equals("")){
+            width = Double.parseDouble(txtLarguraProduto.getText());
+        }
         String gender = (String) comboGeneroProduto.getSelectedItem();
         String thickness = txtEspessuraProduto.getText();
         String bracelet = (String) comboCorPulseiraProduto.getSelectedItem();
         String mostrador = (String) comboMostradorProduto.getSelectedItem();
         String resistance = txtResistenciaProduto.getText();
-        int ensure = (Integer) spinnerGarantiaProduto.getValue();
+        
         String movement = (String) comboMovimentoProduto.getSelectedItem();
         String collection = (String) comboColecaoPrdouto.getSelectedItem();
 
@@ -463,6 +466,7 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
                 quantity,
                 type,
                 material,
+                width,
                 stone,
                 height,
                 price,
@@ -476,16 +480,17 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
                 movement,
                 collection
         ));
+        mock.mostrar();
     }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarProduto;
-    private javax.swing.JComboBox<String> comboColecaoPrdouto;
-    private javax.swing.JComboBox<String> comboCorPulseiraProduto;
-    private javax.swing.JComboBox<String> comboGeneroProduto;
-    private javax.swing.JComboBox<String> comboMostradorProduto;
-    private javax.swing.JComboBox<String> comboMovimentoProduto;
-    private javax.swing.JComboBox<String> comboTipoProduto;
+    public javax.swing.JComboBox<String> comboColecaoPrdouto;
+    public javax.swing.JComboBox<String> comboCorPulseiraProduto;
+    public javax.swing.JComboBox<String> comboGeneroProduto;
+    public javax.swing.JComboBox<String> comboMostradorProduto;
+    public javax.swing.JComboBox<String> comboMovimentoProduto;
+    public javax.swing.JComboBox<String> comboTipoProduto;
     private javax.swing.JLabel lblAlturaProduto;
     private javax.swing.JLabel lblCodigoProduto;
     private javax.swing.JLabel lblColecaoProduto;
@@ -505,17 +510,17 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblTamanhoProduto;
     private javax.swing.JLabel lblTipoProduto;
     private javax.swing.JPanel painelCadastrarProduto;
-    private javax.swing.JSpinner spinnerGarantiaProduto;
-    private javax.swing.JSpinner spinnerQuantProduto;
-    private javax.swing.JSpinner spinnerTamanhoProduto;
-    private javax.swing.JTextField txtAlturaProduto;
+    public javax.swing.JSpinner spinnerGarantiaProduto;
+    public javax.swing.JSpinner spinnerQuantProduto;
+    public javax.swing.JSpinner spinnerTamanhoProduto;
+    public javax.swing.JTextField txtAlturaProduto;
     private javax.swing.JTextField txtCodigoProduto;
-    private javax.swing.JTextField txtDescricaoProduto;
-    private javax.swing.JTextField txtEspessuraProduto;
-    private javax.swing.JTextField txtLarguraProduto;
-    private javax.swing.JTextField txtMaterialProduto;
-    private javax.swing.JTextField txtPedraProduto;
-    private javax.swing.JTextField txtPrecoProduto;
-    private javax.swing.JTextField txtResistenciaProduto;
+    public javax.swing.JTextField txtDescricaoProduto;
+    public javax.swing.JTextField txtEspessuraProduto;
+    public javax.swing.JTextField txtLarguraProduto;
+    public javax.swing.JTextField txtMaterialProduto;
+    public javax.swing.JTextField txtPedraProduto;
+    public javax.swing.JTextField txtPrecoProduto;
+    public javax.swing.JTextField txtResistenciaProduto;
     // End of variables declaration//GEN-END:variables
 }

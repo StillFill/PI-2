@@ -11,7 +11,7 @@ package model.bean;
  */
 public class Produto {
  
-    public String produtoId = "";
+    public String id = "";
     public String description;
     public int quantity;
     public String type;
@@ -30,12 +30,13 @@ public class Produto {
     public String movement;
     public String colection;
 
-    public Produto(String id, String description, int quantity, String type, String material,String stone, double height, double price, int size, String gender, String thickness, String bracelet,String mostrador, String resistance, int ensure, String movement, String colection) {
-        this.produtoId = id;
+    public Produto(String id, String description, int quantity, String type, String material, double width,String stone, double height, double price, int size, String gender, String thickness, String bracelet,String mostrador, String resistance, int ensure, String movement, String colection) {
+        this.id = id;
         this.description = description;
         this.quantity = quantity;
         this.type = type;
         this.material = material;
+        this.width = width;
         this.stone = stone;
         this.height = height;
         this.price = price;
@@ -50,11 +51,11 @@ public class Produto {
     }
 
     public String getId() {
-        return produtoId;
+        return id;
     }
 
     public void setId(String id) {
-        this.produtoId = id;
+        this.id = id;
     }
 
     public String getDescription() {

@@ -1,6 +1,7 @@
 package connection;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import model.bean.Cliente;
 
 public class MockCliente {
@@ -9,17 +10,14 @@ public class MockCliente {
     int f = 1;
 
     public void inserir(Cliente cliente) {
-        boolean existe = false;
-        for (int i = 0; i < clientes.size(); i++) {
-            if (cliente.clienteId == clientes.get(i).clienteId) {
-                clientes.set(i, cliente);
-                existe = true;
-            }
-        }
-        if (!existe) {
-            cliente.clienteId = f;
-            clientes.add(cliente);
-            f++;
+        cliente.id = f;
+        int anterior = clientes.size();
+        clientes.add(cliente);
+        f++;
+        if (clientes.size() > anterior) {
+            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar o cliente!");
         }
     }
 
@@ -27,20 +25,21 @@ public class MockCliente {
 
     }
 
-    public Cliente consultar(int id, String name, String cpf, String cnpj) {
-        if (id != 0) {
-            for (int i = 0; i < clientes.size(); i++) {
-                if (clientes.get(i).clienteId == id) {
-                    return clientes.get(i);
+    public ArrayList<Cliente> consultar(String type, String id) {
+        ArrayList<Cliente> result = new ArrayList<Cliente>();
+        if (type == "NOME") {
+            for (Cliente cliente : clientes) {
+                if (cliente.name.toUpperCase().contains(id.toUpperCase())) {
+                    result.add(cliente);
+                }
+            }
+        } else if (type == "CPF") {
+            for (Cliente cliente : clientes) {
+                if (cliente.documentNumber.contains(id)) {
+                    result.add(cliente);
                 }
             }
         }
-        return null;
-    }
-
-    public void mostrar() {
-        for (int i = 0; i < clientes.size(); i++) {
-            System.out.println(clientes.get(i).name);
-        }
+        return result;
     }
 }

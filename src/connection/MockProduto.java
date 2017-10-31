@@ -1,6 +1,7 @@
 package connection;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import model.bean.Produto;
 
 public class MockProduto {
@@ -9,17 +10,14 @@ public class MockProduto {
     int f = 1;
 
     public void inserir(Produto produto) {
-        boolean existe = false;
-        for (int i = 0; i < produtos.size(); i++) {
-            if (produto.produtoId == produtos.get(i).produtoId) {
-                produtos.set(i, produto);
-                existe = true;
-            }
-        }
-        if (!existe) {
-            produto.produtoId = Integer.toString(f);
-            produtos.add(produto);
-            f++;
+        produto.id = Integer.toString(f);
+        int anterior = produtos.size();
+        produtos.add(produto);
+        f++;
+        if (produtos.size() > anterior) {
+            JOptionPane.showMessageDialog(null, "Venda cadastrado com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar a venda!");
         }
     }
 
@@ -27,20 +25,34 @@ public class MockProduto {
 
     }
 
-    public Produto consultar(int id) {
-        if (id != 0) {
-            for (int i = 0; i < produtos.size(); i++) {
-                if (produtos.get(i).produtoId.equals(id)) {
-                    return produtos.get(i);
+    public ArrayList<Produto> consultar(String type, String id) {
+        ArrayList<Produto> result = new ArrayList<Produto>();
+        if (type == "DESCRIÇÃO") {
+            for (Produto produto : produtos) {
+                if (produto.description.toUpperCase().contains(id.toUpperCase())) {
+                    result.add(produto);
+                }
+            }
+        } else if (type == "TIPO") {
+            for (Produto produto : produtos) {
+                if (produto.type.contains(id)) {
+                    result.add(produto);
+                }
+            }
+        } else if (type == "COLEÇÃO") {
+            for (Produto produto : produtos) {
+                if (produto.colection.contains(id)) {
+                    result.add(produto);
                 }
             }
         }
-        return null;
+        return result;
     }
-
     public void mostrar() {
+        System.out.println("-------------------");
         for (int i = 0; i < produtos.size(); i++) {
-            System.out.println(produtos.get(i).description);
+                System.out.println(produtos.get(i));
         }
+        System.out.println("-------------------");
     }
 }

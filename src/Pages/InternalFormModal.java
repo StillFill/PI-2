@@ -5,16 +5,13 @@
  */
 package Pages;
 
- 
 import javax.swing.JLabel;
-
 
 /**
  *
  * @author ana.cacosta1
  */
 public class InternalFormModal extends javax.swing.JInternalFrame {
-
 
     /**
      * Creates new form InternalFormModal
@@ -121,8 +118,11 @@ public class InternalFormModal extends javax.swing.JInternalFrame {
 
     private void btnConsultarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarRelatorioActionPerformed
         InternalFormRelatorio relatorio = new InternalFormRelatorio();
-        
-        
+        TelaPrincipal tela = new TelaPrincipal();
+        this.getDesktopPane().add(relatorio);
+        this.dispose();
+        tela.openFrameInCenter(relatorio);
+        relatorio.show();
     }//GEN-LAST:event_btnConsultarRelatorioActionPerformed
 
 

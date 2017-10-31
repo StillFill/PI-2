@@ -5,11 +5,18 @@
  */
 package Pages;
 
+import connection.MockCliente;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import model.bean.Cliente;
+
 /**
  *
  * @author Ana Carolina
  */
 public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
+    String tipo, id;
+    Cliente a;
 
     /**
      * Creates new form InternalFormConsultarCliente
@@ -28,108 +35,93 @@ public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         painelConsultaCliente = new javax.swing.JPanel();
-        lblCodigoCliente = new javax.swing.JLabel();
-        txtCodigoCliente = new javax.swing.JTextField();
-        txtNomeCliente = new javax.swing.JTextField();
-        lblNomeCliente = new javax.swing.JLabel();
-        btnConsultarCliente = new javax.swing.JButton();
-        txtCPFCliente = new javax.swing.JFormattedTextField();
-        lblCPFCliente = new javax.swing.JLabel();
-        txtCNPFCliente = new javax.swing.JFormattedTextField();
-        lblCNPJCliente = new javax.swing.JLabel();
+        txtPesquisarCliente = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        tipoConsultarCliente = new javax.swing.JComboBox<>();
+        lblCodigoCliente1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaResultadoCliente = new javax.swing.JTable();
 
         setClosable(true);
         setTitle("Consultar Cliente");
 
         painelConsultaCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta de Clientes"));
 
-        lblCodigoCliente.setText("Código:");
-
-        txtCodigoCliente.addActionListener(new java.awt.event.ActionListener() {
+        txtPesquisarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoClienteActionPerformed(evt);
+                txtPesquisarClienteActionPerformed(evt);
             }
         });
 
-        txtNomeCliente.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Consultar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeClienteActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        lblNomeCliente.setText("Nome:");
-
-        btnConsultarCliente.setText("Consultar");
-        btnConsultarCliente.addActionListener(new java.awt.event.ActionListener() {
+        tipoConsultarCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NOME", "CPF", "CNPJ" }));
+        tipoConsultarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultarClienteActionPerformed(evt);
+                tipoConsultarClienteActionPerformed(evt);
             }
         });
 
-        try {
-            txtCPFCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        lblCodigoCliente1.setText("Pesquisar por:");
 
-        lblCPFCliente.setText("CPF");
+        tabelaResultadoCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        try {
-            txtCNPFCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+            },
+            new String [] {
+                "Nome", "Telefone", "E-Mail", "Estado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
 
-        lblCNPJCliente.setText("CNPJ:");
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tabelaResultadoCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaResultadoClienteMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelaResultadoCliente);
 
         javax.swing.GroupLayout painelConsultaClienteLayout = new javax.swing.GroupLayout(painelConsultaCliente);
         painelConsultaCliente.setLayout(painelConsultaClienteLayout);
         painelConsultaClienteLayout.setHorizontalGroup(
             painelConsultaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelConsultaClienteLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addGroup(painelConsultaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCNPJCliente)
-                    .addGroup(painelConsultaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(painelConsultaClienteLayout.createSequentialGroup()
-                            .addComponent(lblCodigoCliente)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(painelConsultaClienteLayout.createSequentialGroup()
-                            .addGroup(painelConsultaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblNomeCliente)
-                                .addComponent(lblCPFCliente))
-                            .addGap(16, 16, 16)
-                            .addGroup(painelConsultaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtCPFCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                                .addComponent(txtNomeCliente)))
-                        .addComponent(txtCNPFCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelConsultaClienteLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnConsultarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)
+                    .addGroup(painelConsultaClienteLayout.createSequentialGroup()
+                        .addComponent(lblCodigoCliente1)
+                        .addGap(18, 18, 18)
+                        .addComponent(tipoConsultarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(txtPesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 32, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         painelConsultaClienteLayout.setVerticalGroup(
             painelConsultaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelConsultaClienteLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(30, 30, 30)
                 .addGroup(painelConsultaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCodigoCliente)
-                    .addComponent(txtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelConsultaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNomeCliente)
-                    .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelConsultaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCPFCliente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelConsultaClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCNPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCNPJCliente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addComponent(btnConsultarCliente)
+                    .addComponent(tipoConsultarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCodigoCliente1)
+                    .addComponent(txtPesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -137,9 +129,7 @@ public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(painelConsultaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+            .addComponent(painelConsultaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,30 +141,94 @@ public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCodigoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoClienteActionPerformed
+    private void txtPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisarClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoClienteActionPerformed
+    }//GEN-LAST:event_txtPesquisarClienteActionPerformed
 
-    private void txtNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeClienteActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        MockCliente mock = new MockCliente();
+        tipo = (String) tipoConsultarCliente.getSelectedItem();
+        id = txtPesquisarCliente.getText();
+        ArrayList<Cliente> resultado = mock.consultar(tipo, id);
+
+        for (int i = 0; i < resultado.size(); i++) {
+            DefaultTableModel model = (DefaultTableModel) tabelaResultadoCliente.getModel();
+            model.addRow(new Object[]{resultado.get(i).name, resultado.get(i).phoneNumber, resultado.get(i).email, resultado.get(i).state});
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tipoConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoConsultarClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeClienteActionPerformed
+    }//GEN-LAST:event_tipoConsultarClienteActionPerformed
 
-    private void btnConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarClienteActionPerformed
-        TelaPrincipal p = new TelaPrincipal();
-        p.teste();
-    }//GEN-LAST:event_btnConsultarClienteActionPerformed
+    private void tabelaResultadoClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaResultadoClienteMouseClicked
+        int row = tabelaResultadoCliente.getSelectedRow();
+        String nome = (String) tabelaResultadoCliente.getValueAt(row, 0);
+        String phone = (String) tabelaResultadoCliente.getValueAt(row, 1);
+        String email = (String) tabelaResultadoCliente.getValueAt(row, 2);
+        String estado = (String) tabelaResultadoCliente.getValueAt(row, 3);
+
+        MockCliente mock = new MockCliente();
+        ArrayList<Cliente> resultado = mock.consultar(tipo, id);
+        
+        Cliente editing = resultado.get(0);
+        
+        for (int i = 0; i < resultado.size(); i++) {
+            if(resultado.get(i).name == nome && resultado.get(i).phoneNumber == phone){
+                editing = resultado.get(i);
+            }
+        }
+
+        InternalCadastrarCliente cliente = new InternalCadastrarCliente();
+
+
+
+        this.getDesktopPane().add(cliente);
+        this.dispose();
+        cliente.show();
+        System.out.println(editing.complement);
+        cliente.txtNomeCliente.setText(editing.name);
+        cliente.txtNascimentoCliente.setText(editing.birthday);
+        cliente.txtTelCliente.setText(editing.phoneNumber);
+        cliente.txtEmailCliente.setText(editing.email);
+        cliente.comboTipoCliente.setSelectedItem(editing.type);
+        cliente.comboSexoCliente.setSelectedItem(editing.gender);
+        cliente.txtCPFCliente.setText(editing.documentNumber);
+        cliente.txtRazaoSocialCliente.setText(editing.razaoSocial);
+        cliente.txtCEPCliente.setText(editing.cep);
+        cliente.txtEnderecoCliente.setText(editing.adress);
+        cliente.txtNumeroCliente.setText(editing.adressNumber);
+        cliente.txtBairroCliente.setText(editing.neighborHood);
+        cliente.txtCidadeCliente.setText(editing.city);
+        cliente.txtComplementoCliente.setText(editing.complement);
+        cliente.comboEstadoCliente.setSelectedItem(editing.state);
+        
+        cliente.txtNomeCliente.setEnabled(false);
+        cliente.txtNascimentoCliente.setEnabled(false);
+        cliente.txtTelCliente.setEnabled(false);
+        cliente.txtEmailCliente.setEnabled(false);
+        cliente.comboTipoCliente.setEnabled(false);
+        cliente.comboSexoCliente.setEnabled(false);
+        cliente.txtCPFCliente.setEnabled(false);
+        cliente.txtRazaoSocialCliente.setEnabled(false);
+        cliente.txtCEPCliente.setEnabled(false);
+        cliente.txtEnderecoCliente.setEnabled(false);
+        cliente.txtNumeroCliente.setEnabled(false);
+        cliente.txtBairroCliente.setEnabled(false);
+        cliente.txtCidadeCliente.setEnabled(false);
+        cliente.txtComplementoCliente.setEnabled(false);
+        cliente.comboEstadoCliente.setEnabled(false);
+    }//GEN-LAST:event_tabelaResultadoClienteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConsultarCliente;
-    private javax.swing.JLabel lblCNPJCliente;
-    private javax.swing.JLabel lblCPFCliente;
-    private javax.swing.JLabel lblCodigoCliente;
-    private javax.swing.JLabel lblNomeCliente;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCodigoCliente1;
     private javax.swing.JPanel painelConsultaCliente;
-    private javax.swing.JFormattedTextField txtCNPFCliente;
-    private javax.swing.JFormattedTextField txtCPFCliente;
-    private javax.swing.JTextField txtCodigoCliente;
-    private javax.swing.JTextField txtNomeCliente;
+    private javax.swing.JTable tabelaResultadoCliente;
+    private javax.swing.JComboBox<String> tipoConsultarCliente;
+    private javax.swing.JTextField txtPesquisarCliente;
     // End of variables declaration//GEN-END:variables
 }

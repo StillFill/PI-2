@@ -168,7 +168,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-       InternalCadastrarCliente cliente = new InternalCadastrarCliente();
+        InternalCadastrarCliente cliente = new InternalCadastrarCliente();
         this.DesktopPainel.add(cliente);
         this.openFrameInCenter(cliente);
         cliente.show();
@@ -212,12 +212,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.openFrameInCenter(relatorioModal);
         relatorioModal.show();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
-    public void teste(){
-        InternalCadastrarCliente cliente = new InternalCadastrarCliente();
-        this.DesktopPainel.add(cliente);
-        this.openFrameInCenter(cliente);
-        cliente.show();
-    }
+
     public void openFrameInCenter(JInternalFrame jif) {
         Dimension desktopSize = DesktopPainel.getSize();
         Dimension jInternalFrameSize = jif.getSize();
