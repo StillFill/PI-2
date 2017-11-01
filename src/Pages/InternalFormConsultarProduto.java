@@ -172,24 +172,6 @@ public class InternalFormConsultarProduto extends javax.swing.JInternalFrame {
         produto.show();
         produto.setTitle("Consultar Produto");
         
-        produto.txtDescricaoProduto.setEnabled(false);
-        produto.spinnerQuantProduto.setEnabled(false);
-        produto.comboTipoProduto.setEnabled(false);
-        produto.txtMaterialProduto.setEnabled(false);
-        produto.txtPedraProduto.setEnabled(false);
-        produto.txtPrecoProduto.setEnabled(false);
-        produto.spinnerTamanhoProduto.setEnabled(false);
-        produto.spinnerGarantiaProduto.setEnabled(false); 
-        produto.txtLarguraProduto.setEnabled(false);
-        produto.comboGeneroProduto.setEnabled(false);
-        produto.txtEspessuraProduto.setEnabled(false);
-        produto.comboCorPulseiraProduto.setEnabled(false);
-        produto.comboMostradorProduto.setEnabled(false);
-        produto.txtResistenciaProduto.setEnabled(false);
-        produto.comboMovimentoProduto.setEnabled(false);
-        produto.comboColecaoPrdouto.setEnabled(false);
-        produto.txtAlturaProduto.setEnabled(false);
-        
         produto.txtDescricaoProduto.setText(editing.description);
         produto.spinnerQuantProduto.setValue(editing.quantity);
         produto.comboTipoProduto.setSelectedItem(editing.type);
@@ -207,6 +189,24 @@ public class InternalFormConsultarProduto extends javax.swing.JInternalFrame {
         produto.txtResistenciaProduto.setText(editing.resistance);
         produto.comboMovimentoProduto.setSelectedItem(editing.movement);
         produto.comboColecaoPrdouto.setSelectedItem(editing.colection);
+        
+        produto.txtDescricaoProduto.setEnabled(false);
+        produto.spinnerQuantProduto.setEnabled(false);
+        produto.comboTipoProduto.setEnabled(false);
+        produto.txtMaterialProduto.setEnabled(false);
+        produto.txtPedraProduto.setEnabled(false);
+        produto.txtPrecoProduto.setEnabled(false);
+        produto.spinnerTamanhoProduto.setEnabled(false);
+        produto.spinnerGarantiaProduto.setEnabled(false); 
+        produto.txtLarguraProduto.setEnabled(false);
+        produto.comboGeneroProduto.setEnabled(false);
+        produto.txtEspessuraProduto.setEnabled(false);
+        produto.comboCorPulseiraProduto.setEnabled(false);
+        produto.comboMostradorProduto.setEnabled(false);
+        produto.txtResistenciaProduto.setEnabled(false);
+        produto.comboMovimentoProduto.setEnabled(false);
+        produto.comboColecaoPrdouto.setEnabled(false);
+        produto.txtAlturaProduto.setEnabled(false);
     }//GEN-LAST:event_tabelaResultadoProdutoMouseClicked
 
 

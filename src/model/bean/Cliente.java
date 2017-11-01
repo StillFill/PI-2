@@ -21,10 +21,11 @@ public class Cliente {
     public String city;
     public String complement;
     public String state;
-    public int id = 0;
+    public String id = "";
     InternalCadastrarCliente t = new InternalCadastrarCliente();
     
-    public Cliente(String name, String birthday, String phoneNumber, String email, String type, String genedr, String documentNumber, String razaoSocial, String cep, String adress, String adressNumber, String neighborHood, String city, String complement, String state){
+    public Cliente(String id, String name, String birthday, String phoneNumber, String email, String type, String gender, String documentNumber, String razaoSocial, String cep, String adress, String adressNumber, String neighborHood, String city, String complement, String state){
+        this.id = id;
         this.name = name;
         this.birthday = birthday;
         this.phoneNumber = phoneNumber;
@@ -40,6 +41,7 @@ public class Cliente {
         this.state = state;
         this.adressNumber = adressNumber;
         this.neighborHood = neighborHood;
+        
     }
     
     

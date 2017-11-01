@@ -15,7 +15,6 @@ import model.bean.Cliente;
  * @author Ana Carolina
  */
 public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
-
     String tipo, id;
     Cliente a;
 
@@ -192,6 +191,7 @@ public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
         cliente.txtTelCliente.setText(editing.phoneNumber);
         cliente.txtEmailCliente.setText(editing.email);
         cliente.comboTipoCliente.setSelectedItem(editing.type);
+        System.out.println(editing.gender);
         cliente.comboSexoCliente.setSelectedItem(editing.gender);
         cliente.txtCPFCliente.setText(editing.documentNumber);
         cliente.txtRazaoSocialCliente.setText(editing.razaoSocial);
@@ -218,6 +218,11 @@ public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
         cliente.txtCidadeCliente.setEnabled(false);
         cliente.txtComplementoCliente.setEnabled(false);
         cliente.comboEstadoCliente.setEnabled(false);
+        
+        cliente.editando = true;
+        cliente.btnCadastrarCliente.setText("Editar");
+        cliente.btnEditarCliente.setVisible(true);
+        cliente.btnCadastrarCliente.setVisible(false);
     }//GEN-LAST:event_tabelaResultadoClienteMouseClicked
 
 

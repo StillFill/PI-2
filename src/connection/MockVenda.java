@@ -18,9 +18,6 @@ public class MockVenda {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar a venda!");
         }
     }
-    public void editar(Venda venda){
-        
-    }
     public Venda consultar(int id, String name, String cpf, String cnpj){
         if(id != 0){
             for(int i = 0; i < vendas.size(); i++){
