@@ -15,10 +15,11 @@ import model.bean.Produto;
  * @author Ana Carolina
  */
 public class InternalFormConsultarProduto extends javax.swing.JInternalFrame {
-
+    boolean editando = false;
     String type;
     String id;
     boolean consultandoProduto = false;
+    static int index = 0;
 
     /**
      * Creates new form InternalFormConsultarProduto
@@ -138,7 +139,6 @@ public class InternalFormConsultarProduto extends javax.swing.JInternalFrame {
 
         MockProduto mock = new MockProduto();
         ArrayList<Produto> resultado = mock.consultar(type, id);
-        System.out.println(resultado.get(0));
         DefaultTableModel model = (DefaultTableModel) tabelaResultadoProduto.getModel();
         model.setRowCount(0);
         for (int i = 0; i < resultado.size(); i++) {
@@ -154,38 +154,37 @@ public class InternalFormConsultarProduto extends javax.swing.JInternalFrame {
         MockProduto mock = new MockProduto();
         ArrayList<Produto> resultado = mock.consultar(type, id);
 
-        Produto editing = resultado.get(0);
+        Produto editingProduto = resultado.get(0);
 
         for (int i = 0; i < resultado.size(); i++) {
-            if (resultado.get(i).description == descricao && resultado.get(i).colection == colecao) {
-                editing = resultado.get(i);
+            if (resultado.get(i).description.equals(descricao) && resultado.get(i).colection.equals(colecao)) {
+                editingProduto = resultado.get(i);
             }
         }
         InternalCadastrarProduto produto = new InternalCadastrarProduto();
         if (!consultandoProduto) {
-
             this.getDesktopPane().add(produto);
             this.dispose();
             produto.show();
             produto.setTitle("Consultar Produto");
             
-            produto.txtDescricaoProduto.setText(editing.description);
-            produto.spinnerQuantProduto.setValue(editing.quantity);
-            produto.comboTipoProduto.setSelectedItem(editing.type);
-            produto.txtMaterialProduto.setText(editing.material);
-            produto.txtPedraProduto.setText(editing.stone);
-            produto.txtAlturaProduto.setText(Double.toString(editing.height));
-            produto.txtPrecoProduto.setText(Double.toString(editing.price));
-            produto.spinnerTamanhoProduto.setValue(editing.size);
-            produto.spinnerGarantiaProduto.setValue(editing.ensure);
-            produto.txtLarguraProduto.setText(Double.toString(editing.width));
-            produto.comboGeneroProduto.setSelectedItem(editing.gender);
-            produto.txtEspessuraProduto.setText(editing.thickness);
-            produto.comboCorPulseiraProduto.setSelectedItem(editing.bracelet);
-            produto.comboMostradorProduto.setSelectedItem(editing.mostrador);
-            produto.txtResistenciaProduto.setText(editing.resistance);
-            produto.comboMovimentoProduto.setSelectedItem(editing.movement);
-            produto.comboColecaoPrdouto.setSelectedItem(editing.colection);
+            produto.txtDescricaoProduto.setText(editingProduto.description);
+            produto.spinnerQuantProduto.setValue(editingProduto.quantity);
+            produto.comboTipoProduto.setSelectedItem(editingProduto.type);
+            produto.txtMaterialProduto.setText(editingProduto.material);
+            produto.txtPedraProduto.setText(editingProduto.stone);
+            produto.txtAlturaProduto.setText(Double.toString(editingProduto.height));
+            produto.txtPrecoProduto.setText(Double.toString(editingProduto.price));
+            produto.spinnerTamanhoProduto.setValue(editingProduto.size);
+            produto.spinnerGarantiaProduto.setValue(editingProduto.ensure);
+            produto.txtLarguraProduto.setText(Double.toString(editingProduto.width));
+            produto.comboGeneroProduto.setSelectedItem(editingProduto.gender);
+            produto.txtEspessuraProduto.setText(editingProduto.thickness);
+            produto.comboCorPulseiraProduto.setSelectedItem(editingProduto.bracelet);
+            produto.comboMostradorProduto.setSelectedItem(editingProduto.mostrador);
+            produto.txtResistenciaProduto.setText(editingProduto.resistance);
+            produto.comboMovimentoProduto.setSelectedItem(editingProduto.movement);
+            produto.comboColecaoPrdouto.setSelectedItem(editingProduto.colection);
             
             produto.txtDescricaoProduto.setEnabled(false);
             produto.spinnerQuantProduto.setEnabled(false);
@@ -204,6 +203,10 @@ public class InternalFormConsultarProduto extends javax.swing.JInternalFrame {
             produto.comboMovimentoProduto.setEnabled(false);
             produto.comboColecaoPrdouto.setEnabled(false);
             produto.txtAlturaProduto.setEnabled(false);
+            editando = true;
+            produto.btnEditarProduto.setVisible(true);
+            produto.btnCadastrarProduto.setVisible(false);
+            index = mock.acharIndex(editingProduto.id);
         } else {
             TelaPrincipal tela = new TelaPrincipal();
             InternalFormVender vender = new InternalFormVender();
@@ -217,9 +220,9 @@ public class InternalFormConsultarProduto extends javax.swing.JInternalFrame {
             String cpfCliente = "";
             
             //produto
-            description = editing.description;
-            codigoProduto = editing.id;
-            preco = editing.price;
+            description = editingProduto.description;
+            codigoProduto = editingProduto.id;
+            preco = editingProduto.price;
             //tela
             discount = vender.txtDesconto.getText();
             quantidade = (Integer) vender.spinnerQuantidade.getValue();
@@ -233,6 +236,7 @@ public class InternalFormConsultarProduto extends javax.swing.JInternalFrame {
             vender.show();
 
             vender.txtCodigoProduto.setText(codigoProduto);
+            vender.txtCodigoProduto.setEnabled(false);
             vender.txtDescricaoProduto.setText(description);
             vender.txtDesconto.setText(discount);
             vender.txtNomeCliente.setText(nomeCliente);

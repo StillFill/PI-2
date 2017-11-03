@@ -6,10 +6,6 @@
 package Pages;
 
 import connection.MockVenda;
-import connection.MockVenda;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import model.bean.Venda;
 import model.bean.Venda;
 
 /**
@@ -20,6 +16,7 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
 
     boolean consultandoProduto = false;
     boolean consultandoCliente = false;
+
     /**
      * Creates new form InternalFormVender
      */
@@ -77,8 +74,7 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
 
         spinnerQuantidade.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
-        txtPreco.setEditable(false);
-        txtPreco.setEnabled(false);
+        txtPreco.setDragEnabled(true);
 
         lblPreco.setText("Preço:");
 
@@ -294,6 +290,7 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
         this.getDesktopPane().add(cliente);
         tela.openFrameInCenter(cliente);
         cliente.show();
+        cliente.consultandoCliente = true;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

@@ -3,15 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/msgre/Documents/NetBeansProjects/PI_JOALHERIA/src/Pages/TelaPrincipal.java</file>
-            <file>file:/C:/Users/msgre/Documents/NetBeansProjects/PI_JOALHERIA/src/Pages/InternalFormVender.java</file>
-            <file>file:/C:/Users/msgre/Documents/NetBeansProjects/PI_JOALHERIA/src/Pages/InternalFormConsultarProduto.java</file>
-=======
-            <file>file:/C:/Users/msgre/Documents/NetBeansProjects/PI_JOALHERIA/src/connection/MockCliente.java</file>
-            <file>file:/C:/Users/msgre/Documents/NetBeansProjects/PI_JOALHERIA/src/Pages/InternalCadastrarCliente.java</file>
-            <file>file:/C:/Users/msgre/Documents/NetBeansProjects/PI_JOALHERIA/src/Pages/InternalFormConsultarCliente.java</file>
->>>>>>> 646b46bf44c601c72115711738e7e4b8f0fea9b2
+            <file>file:/C:/Users/msgre/Documents/NetBeansProjects/PI_JOALHERIA/src/Pages/InternalCadastrarProduto.java</file>
+            <file>file:/C:/Users/msgre/Documents/NetBeansProjects/PI_JOALHERIA/src/connection/MockProduto.java</file>
         </group>
     </open-files>
 </project-private>
