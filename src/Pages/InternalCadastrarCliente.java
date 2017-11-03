@@ -20,7 +20,6 @@ import model.bean.Cliente;
  */
 public class InternalCadastrarCliente extends javax.swing.JInternalFrame {
 
-    boolean editando = false;
     boolean clicked = false;
 
     /**

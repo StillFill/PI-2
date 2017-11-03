@@ -21,6 +21,7 @@ import java.awt.Graphics;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
+   static InternalFormVender novaVenda = new InternalFormVender();
     /**
      * Creates new form TelaPrincipal
      */
@@ -177,7 +178,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         InternalCadastrarProduto produto = new InternalCadastrarProduto();
-        this.DesktopPainel.add(produto);    
+        this.DesktopPainel.add(produto);
         this.openFrameInCenter(produto);
         produto.show();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
@@ -200,14 +201,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-        InternalFormVender novaVenda = new InternalFormVender();
         this.DesktopPainel.add(novaVenda);
         this.openFrameInCenter(novaVenda);
         novaVenda.show();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
-
+    public void fecharPainel() {
+        novaVenda.hide();
+    }
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-       InternalFormModal relatorioModal = new InternalFormModal();
+        InternalFormModal relatorioModal = new InternalFormModal();
         this.DesktopPainel.add(relatorioModal);
         this.openFrameInCenter(relatorioModal);
         relatorioModal.show();
@@ -221,6 +223,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jif.setLocation(width, height);
         jif.setVisible(true);
     }
+
     /**
      * @param args the command line arguments
      */
@@ -272,7 +275,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void setIcon() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage( getClass().getResource("logo.png")));
-          }
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
+    }
 }
-

@@ -9,7 +9,6 @@ public class MockVenda {
     int f = 1;
     public void inserir(Venda venda) {
         int anterior = vendas.size();
-        venda.id = Integer.toString(f);
         vendas.add(venda); 
         f++;
         if (vendas.size() > anterior) {
@@ -17,15 +16,5 @@ public class MockVenda {
         } else {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar a venda!");
         }
-    }
-    public Venda consultar(int id, String name, String cpf, String cnpj){
-        if(id != 0){
-            for(int i = 0; i < vendas.size(); i++){
-                if(vendas.get(i).id.equals(id)){
-                    return vendas.get(i);
-                }
-            }
-        }
-        return null;
     }
 }

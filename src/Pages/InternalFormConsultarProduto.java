@@ -15,8 +15,12 @@ import model.bean.Produto;
  * @author Ana Carolina
  */
 public class InternalFormConsultarProduto extends javax.swing.JInternalFrame {
+    boolean editando = false;
     String type;
     String id;
+    boolean consultandoProduto = false;
+    static int index = 0;
+
     /**
      * Creates new form InternalFormConsultarProduto
      */
@@ -132,10 +136,9 @@ public class InternalFormConsultarProduto extends javax.swing.JInternalFrame {
     private void btnConsultarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarProdutoActionPerformed
         id = (String) txtCodigoProduto.getText();
         type = (String) tipoPesquisarProduto.getSelectedItem();
-        
+
         MockProduto mock = new MockProduto();
         ArrayList<Produto> resultado = mock.consultar(type, id);
-        System.out.println(resultado.get(0));
         DefaultTableModel model = (DefaultTableModel) tabelaResultadoProduto.getModel();
         model.setRowCount(0);
         for (int i = 0; i < resultado.size(); i++) {
@@ -144,69 +147,104 @@ public class InternalFormConsultarProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnConsultarProdutoActionPerformed
 
     private void tabelaResultadoProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaResultadoProdutoMouseClicked
-        System.out.println("ta aqui");
         int row = tabelaResultadoProduto.getSelectedRow();
-        System.out.println(tabelaResultadoProduto.getValueAt(row, 3));
         String descricao = (String) tabelaResultadoProduto.getValueAt(row, 0);
         String colecao = (String) tabelaResultadoProduto.getValueAt(row, 2);
 
-        System.out.println(descricao);
-        
         MockProduto mock = new MockProduto();
         ArrayList<Produto> resultado = mock.consultar(type, id);
 
-        Produto editing = resultado.get(0);
+        Produto editingProduto = resultado.get(0);
 
         for (int i = 0; i < resultado.size(); i++) {
-            if(resultado.get(i).description == descricao && resultado.get(i).colection == colecao){
-                editing = resultado.get(i);
+            if (resultado.get(i).description.equals(descricao) && resultado.get(i).colection.equals(colecao)) {
+                editingProduto = resultado.get(i);
             }
         }
-        
-        System.out.println(editing.description);
-
         InternalCadastrarProduto produto = new InternalCadastrarProduto();
-        
-        this.getDesktopPane().add(produto);
-        this.dispose();
-        produto.show();
-        produto.setTitle("Consultar Produto");
-        
-        produto.txtDescricaoProduto.setText(editing.description);
-        produto.spinnerQuantProduto.setValue(editing.quantity);
-        produto.comboTipoProduto.setSelectedItem(editing.type);
-        produto.txtMaterialProduto.setText(editing.material);
-        produto.txtPedraProduto.setText(editing.stone);
-        produto.txtAlturaProduto.setText(Double.toString(editing.height));
-        produto.txtPrecoProduto.setText(Double.toString(editing.price));
-        produto.spinnerTamanhoProduto.setValue(editing.size);
-        produto.spinnerGarantiaProduto.setValue(editing.ensure); 
-        produto.txtLarguraProduto.setText(Double.toString(editing.width));
-        produto.comboGeneroProduto.setSelectedItem(editing.gender);
-        produto.txtEspessuraProduto.setText(editing.thickness);
-        produto.comboCorPulseiraProduto.setSelectedItem(editing.bracelet);
-        produto.comboMostradorProduto.setSelectedItem(editing.mostrador);
-        produto.txtResistenciaProduto.setText(editing.resistance);
-        produto.comboMovimentoProduto.setSelectedItem(editing.movement);
-        produto.comboColecaoPrdouto.setSelectedItem(editing.colection);
-        
-        produto.txtDescricaoProduto.setEnabled(false);
-        produto.spinnerQuantProduto.setEnabled(false);
-        produto.comboTipoProduto.setEnabled(false);
-        produto.txtMaterialProduto.setEnabled(false);
-        produto.txtPedraProduto.setEnabled(false);
-        produto.txtPrecoProduto.setEnabled(false);
-        produto.spinnerTamanhoProduto.setEnabled(false);
-        produto.spinnerGarantiaProduto.setEnabled(false); 
-        produto.txtLarguraProduto.setEnabled(false);
-        produto.comboGeneroProduto.setEnabled(false);
-        produto.txtEspessuraProduto.setEnabled(false);
-        produto.comboCorPulseiraProduto.setEnabled(false);
-        produto.comboMostradorProduto.setEnabled(false);
-        produto.txtResistenciaProduto.setEnabled(false);
-        produto.comboMovimentoProduto.setEnabled(false);
-        produto.comboColecaoPrdouto.setEnabled(false);
-        produto.txtAlturaProduto.setEnabled(false);
+        if (!consultandoProduto) {
+            this.getDesktopPane().add(produto);
+            this.dispose();
+            produto.show();
+            produto.setTitle("Consultar Produto");
+            
+            produto.txtDescricaoProduto.setText(editingProduto.description);
+            produto.spinnerQuantProduto.setValue(editingProduto.quantity);
+            produto.comboTipoProduto.setSelectedItem(editingProduto.type);
+            produto.txtMaterialProduto.setText(editingProduto.material);
+            produto.txtPedraProduto.setText(editingProduto.stone);
+            produto.txtAlturaProduto.setText(Double.toString(editingProduto.height));
+            produto.txtPrecoProduto.setText(Double.toString(editingProduto.price));
+            produto.spinnerTamanhoProduto.setValue(editingProduto.size);
+            produto.spinnerGarantiaProduto.setValue(editingProduto.ensure);
+            produto.txtLarguraProduto.setText(Double.toString(editingProduto.width));
+            produto.comboGeneroProduto.setSelectedItem(editingProduto.gender);
+            produto.txtEspessuraProduto.setText(editingProduto.thickness);
+            produto.comboCorPulseiraProduto.setSelectedItem(editingProduto.bracelet);
+            produto.comboMostradorProduto.setSelectedItem(editingProduto.mostrador);
+            produto.txtResistenciaProduto.setText(editingProduto.resistance);
+            produto.comboMovimentoProduto.setSelectedItem(editingProduto.movement);
+            produto.comboColecaoPrdouto.setSelectedItem(editingProduto.colection);
+            
+            produto.txtDescricaoProduto.setEnabled(false);
+            produto.spinnerQuantProduto.setEnabled(false);
+            produto.comboTipoProduto.setEnabled(false);
+            produto.txtMaterialProduto.setEnabled(false);
+            produto.txtPedraProduto.setEnabled(false);
+            produto.txtPrecoProduto.setEnabled(false);
+            produto.spinnerTamanhoProduto.setEnabled(false);
+            produto.spinnerGarantiaProduto.setEnabled(false);
+            produto.txtLarguraProduto.setEnabled(false);
+            produto.comboGeneroProduto.setEnabled(false);
+            produto.txtEspessuraProduto.setEnabled(false);
+            produto.comboCorPulseiraProduto.setEnabled(false);
+            produto.comboMostradorProduto.setEnabled(false);
+            produto.txtResistenciaProduto.setEnabled(false);
+            produto.comboMovimentoProduto.setEnabled(false);
+            produto.comboColecaoPrdouto.setEnabled(false);
+            produto.txtAlturaProduto.setEnabled(false);
+            editando = true;
+            produto.btnEditarProduto.setVisible(true);
+            produto.btnCadastrarProduto.setVisible(false);
+            index = mock.acharIndex(editingProduto.id);
+        } else {
+            TelaPrincipal tela = new TelaPrincipal();
+            InternalFormVender vender = new InternalFormVender();
+            vender.hide();
+            String description = "";
+            String codigoProduto = "";
+            double preco = 0;
+            String discount = "";
+            int quantidade = 0;
+            String nomeCliente = "";
+            String cpfCliente = "";
+            
+            //produto
+            description = editingProduto.description;
+            codigoProduto = editingProduto.id;
+            preco = editingProduto.price;
+            //tela
+            discount = vender.txtDesconto.getText();
+            quantidade = (Integer) vender.spinnerQuantidade.getValue();
+            //cliente
+            nomeCliente = vender.txtNomeCliente.getText();
+            cpfCliente = vender.txtCPFCliente.getText();
+
+            getDesktopPane().add(vender);
+
+            dispose();
+            vender.show();
+
+            vender.txtCodigoProduto.setText(codigoProduto);
+            vender.txtCodigoProduto.setEnabled(false);
+            vender.txtDescricaoProduto.setText(description);
+            vender.txtDesconto.setText(discount);
+            vender.txtNomeCliente.setText(nomeCliente);
+            vender.txtCPFCliente.setText(cpfCliente);
+            vender.spinnerQuantidade.setValue(quantidade);
+            vender.txtPreco.setText(Double.toString(preco));
+            tela.fecharPainel();
+        }
     }//GEN-LAST:event_tabelaResultadoProdutoMouseClicked
 
 

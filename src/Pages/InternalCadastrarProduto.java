@@ -14,6 +14,9 @@ import model.bean.Produto;
  */
 public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
 
+    boolean editando = false;
+    boolean clicked = false;
+
     /**
      * Creates new form InternalCadastrarProduto
      */
@@ -66,6 +69,7 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
         comboColecaoPrdouto = new javax.swing.JComboBox<>();
         lblColecaoProduto = new javax.swing.JLabel();
         comboGeneroProduto = new javax.swing.JComboBox<>();
+        btnEditarProduto = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Cadastrar Novo Produto");
@@ -167,6 +171,14 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
             }
         });
 
+        btnEditarProduto.setVisible(false);
+        btnEditarProduto.setText("Editar");
+        btnEditarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarProdutoActionPerformed(evt);
+            }
+        });
+
         comboGeneroProduto.setEnabled(false);
         txtEspessuraProduto.setEnabled(false);
         comboCorPulseiraProduto.setEnabled(false);
@@ -184,7 +196,10 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
                 .addGroup(painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelCadastrarProdutoLayout.createSequentialGroup()
                         .addGroup(painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCadastrarProduto, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastrarProdutoLayout.createSequentialGroup()
+                                .addComponent(btnEditarProduto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCadastrarProduto))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastrarProdutoLayout.createSequentialGroup()
                                 .addGroup(painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(painelCadastrarProdutoLayout.createSequentialGroup()
@@ -337,8 +352,10 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
                             .addComponent(comboMovimentoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblColecaoProduto)
                             .addComponent(comboColecaoPrdouto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCadastrarProduto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                        .addGroup(painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCadastrarProduto)
+                            .addComponent(btnEditarProduto))
                         .addGap(19, 19, 19))
                     .addGroup(painelCadastrarProdutoLayout.createSequentialGroup()
                         .addGroup(painelCadastrarProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,13 +440,13 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
         if (txtPrecoProduto.getText() != null && !txtPrecoProduto.getText().trim().equals("")) {
             price = Double.parseDouble(txtPrecoProduto.getText());
         }
-        if(spinnerTamanhoProduto.getValue() != null){
+        if (spinnerTamanhoProduto.getValue() != null) {
             size = (Integer) spinnerTamanhoProduto.getValue();
         }
-        if(spinnerGarantiaProduto.getValue() != null){
-           ensure = (Integer) spinnerGarantiaProduto.getValue(); 
+        if (spinnerGarantiaProduto.getValue() != null) {
+            ensure = (Integer) spinnerGarantiaProduto.getValue();
         }
-        if(txtLarguraProduto.getText() != null && !txtLarguraProduto.getText().trim().equals("")){
+        if (txtLarguraProduto.getText() != null && !txtLarguraProduto.getText().trim().equals("")) {
             width = Double.parseDouble(txtLarguraProduto.getText());
         }
         String gender = (String) comboGeneroProduto.getSelectedItem();
@@ -437,12 +454,18 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
         String bracelet = (String) comboCorPulseiraProduto.getSelectedItem();
         String mostrador = (String) comboMostradorProduto.getSelectedItem();
         String resistance = txtResistenciaProduto.getText();
-        
+
         String movement = (String) comboMovimentoProduto.getSelectedItem();
         String collection = (String) comboColecaoPrdouto.getSelectedItem();
-
+        String id = "";
         MockProduto mock = new MockProduto();
-        mock.inserir(new Produto(
+        InternalFormConsultarProduto prod = new InternalFormConsultarProduto();
+        if (clicked) {
+            id = Integer.toString(prod.index);
+            clicked = false;
+        }
+        Produto produto = new Produto(
+                id,
                 description,
                 quantity,
                 type,
@@ -460,12 +483,39 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
                 ensure,
                 movement,
                 collection
-        ));
-        mock.mostrar();
+        );
+        mock.inserir(produto);
     }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
 
+    private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
+        if (!clicked) {
+            txtDescricaoProduto.setEnabled(true);
+            spinnerQuantProduto.setEnabled(true);
+            comboTipoProduto.setEnabled(true);
+            txtMaterialProduto.setEnabled(true);
+            txtPedraProduto.setEnabled(true);
+            txtPrecoProduto.setEnabled(true);
+            spinnerTamanhoProduto.setEnabled(true);
+            spinnerGarantiaProduto.setEnabled(true);
+            txtLarguraProduto.setEnabled(true);
+            comboGeneroProduto.setEnabled(true);
+            txtEspessuraProduto.setEnabled(true);
+            comboCorPulseiraProduto.setEnabled(true);
+            comboMostradorProduto.setEnabled(true);
+            txtResistenciaProduto.setEnabled(true);
+            comboMovimentoProduto.setEnabled(true);
+            comboColecaoPrdouto.setEnabled(true);
+            txtAlturaProduto.setEnabled(true);
+            btnEditarProduto.setVisible(false);
+            btnCadastrarProduto.setText("Salvar");
+            btnCadastrarProduto.setVisible(true);
+            clicked = true;
+        }
+    }//GEN-LAST:event_btnEditarProdutoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrarProduto;
+    public javax.swing.JButton btnCadastrarProduto;
+    public javax.swing.JButton btnEditarProduto;
     public javax.swing.JComboBox<String> comboColecaoPrdouto;
     public javax.swing.JComboBox<String> comboCorPulseiraProduto;
     public javax.swing.JComboBox<String> comboGeneroProduto;

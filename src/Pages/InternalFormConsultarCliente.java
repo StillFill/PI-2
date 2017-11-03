@@ -15,8 +15,10 @@ import model.bean.Cliente;
  * @author Ana Carolina
  */
 public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
+
     String tipo, id;
     Cliente a;
+    boolean consultandoCliente = false;
 
     /**
      * Creates new form InternalFormConsultarCliente
@@ -166,8 +168,6 @@ public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
         int row = tabelaResultadoCliente.getSelectedRow();
         String nome = (String) tabelaResultadoCliente.getValueAt(row, 0);
         String phone = (String) tabelaResultadoCliente.getValueAt(row, 1);
-        String email = (String) tabelaResultadoCliente.getValueAt(row, 2);
-        String estado = (String) tabelaResultadoCliente.getValueAt(row, 3);
 
         MockCliente mock = new MockCliente();
         ArrayList<Cliente> resultado = mock.consultar(tipo, id);
@@ -175,54 +175,55 @@ public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
         Cliente editing = resultado.get(0);
 
         for (int i = 0; i < resultado.size(); i++) {
-            if (resultado.get(i).name == nome && resultado.get(i).phoneNumber == phone) {
+            if (resultado.get(i).name.equals(nome) && resultado.get(i).phoneNumber.equals(phone)) {
                 editing = resultado.get(i);
             }
         }
 
         InternalCadastrarCliente cliente = new InternalCadastrarCliente();
+        if (!consultandoCliente) {
+            this.getDesktopPane().add(cliente);
+            this.dispose();
+            cliente.show();
+            cliente.txtNomeCliente.setText(editing.name);
+            cliente.txtNascimentoCliente.setText(editing.birthday);
+            cliente.txtTelCliente.setText(editing.phoneNumber);
+            cliente.txtEmailCliente.setText(editing.email);
+            cliente.comboTipoCliente.setSelectedItem(editing.type);
+            cliente.comboSexoCliente.setSelectedItem(editing.gender);
+            cliente.txtCPFCliente.setText(editing.documentNumber);
+            cliente.txtRazaoSocialCliente.setText(editing.razaoSocial);
+            cliente.txtCEPCliente.setText(editing.cep);
+            cliente.txtEnderecoCliente.setText(editing.adress);
+            cliente.txtNumeroCliente.setText(editing.adressNumber);
+            cliente.txtBairroCliente.setText(editing.neighborHood);
+            cliente.txtCidadeCliente.setText(editing.city);
+            cliente.txtComplementoCliente.setText(editing.complement);
+            cliente.comboEstadoCliente.setSelectedItem(editing.state);
 
-        this.getDesktopPane().add(cliente);
-        this.dispose();
-        cliente.show();
-        System.out.println(editing.complement);
-        cliente.txtNomeCliente.setText(editing.name);
-        cliente.txtNascimentoCliente.setText(editing.birthday);
-        cliente.txtTelCliente.setText(editing.phoneNumber);
-        cliente.txtEmailCliente.setText(editing.email);
-        cliente.comboTipoCliente.setSelectedItem(editing.type);
-        System.out.println(editing.gender);
-        cliente.comboSexoCliente.setSelectedItem(editing.gender);
-        cliente.txtCPFCliente.setText(editing.documentNumber);
-        cliente.txtRazaoSocialCliente.setText(editing.razaoSocial);
-        cliente.txtCEPCliente.setText(editing.cep);
-        cliente.txtEnderecoCliente.setText(editing.adress);
-        cliente.txtNumeroCliente.setText(editing.adressNumber);
-        cliente.txtBairroCliente.setText(editing.neighborHood);
-        cliente.txtCidadeCliente.setText(editing.city);
-        cliente.txtComplementoCliente.setText(editing.complement);
-        cliente.comboEstadoCliente.setSelectedItem(editing.state);
+            cliente.txtNomeCliente.setEnabled(false);
+            cliente.txtNascimentoCliente.setEnabled(false);
+            cliente.txtTelCliente.setEnabled(false);
+            cliente.txtEmailCliente.setEnabled(false);
+            cliente.comboTipoCliente.setEnabled(false);
+            cliente.comboSexoCliente.setEnabled(false);
+            cliente.txtCPFCliente.setEnabled(false);
+            cliente.txtRazaoSocialCliente.setEnabled(false);
+            cliente.txtCEPCliente.setEnabled(false);
+            cliente.txtEnderecoCliente.setEnabled(false);
+            cliente.txtNumeroCliente.setEnabled(false);
+            cliente.txtBairroCliente.setEnabled(false);
+            cliente.txtCidadeCliente.setEnabled(false);
+            cliente.txtComplementoCliente.setEnabled(false);
+            cliente.comboEstadoCliente.setEnabled(false);
 
-        cliente.txtNomeCliente.setEnabled(false);
-        cliente.txtNascimentoCliente.setEnabled(false);
-        cliente.txtTelCliente.setEnabled(false);
-        cliente.txtEmailCliente.setEnabled(false);
-        cliente.comboTipoCliente.setEnabled(false);
-        cliente.comboSexoCliente.setEnabled(false);
-        cliente.txtCPFCliente.setEnabled(false);
-        cliente.txtRazaoSocialCliente.setEnabled(false);
-        cliente.txtCEPCliente.setEnabled(false);
-        cliente.txtEnderecoCliente.setEnabled(false);
-        cliente.txtNumeroCliente.setEnabled(false);
-        cliente.txtBairroCliente.setEnabled(false);
-        cliente.txtCidadeCliente.setEnabled(false);
-        cliente.txtComplementoCliente.setEnabled(false);
-        cliente.comboEstadoCliente.setEnabled(false);
-        
-        cliente.editando = true;
-        cliente.btnCadastrarCliente.setText("Editar");
-        cliente.btnEditarCliente.setVisible(true);
-        cliente.btnCadastrarCliente.setVisible(false);
+            cliente.btnCadastrarCliente.setText("Editar");
+            cliente.btnEditarCliente.setVisible(true);
+            cliente.btnCadastrarCliente.setVisible(false);
+            System.out.println("aqui tem q estar chegando no segundo");
+        } else {
+        }
+
     }//GEN-LAST:event_tabelaResultadoClienteMouseClicked
 
 

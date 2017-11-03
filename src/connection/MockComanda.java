@@ -12,7 +12,6 @@ public class MockComanda {
 
     public void inserir(Comanda comanda) {
         int anterior = comandas.size();
-        System.out.println(comanda.vendas.size());
         comanda.comandaId = Integer.toString(f);
         comandas.add(comanda);
         f++;
