@@ -5,7 +5,11 @@
  */
 package Pages;
 
+import connection.MockComanda;
 import connection.MockVenda;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import model.bean.Comanda;
 import model.bean.Venda;
 
 /**
@@ -14,6 +18,7 @@ import model.bean.Venda;
  */
 public class InternalFormVender extends javax.swing.JInternalFrame {
 
+    ArrayList<Venda> vendas = new ArrayList<Venda>();
     boolean consultandoProduto = false;
     boolean consultandoCliente = false;
 
@@ -93,11 +98,11 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Descrição", "Quantidade", "Preço", "Desconto"
+                "Descrição", "Quantidade", "Preço", "Desconto"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -272,16 +277,22 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
         double price = Double.parseDouble(txtPreco.getText());
         double discount = Double.parseDouble(txtDesconto.getText());
 
-        mock.inserir(new Venda(
+        Venda venda = new Venda(
                 description,
                 price,
                 quantity,
                 discount
-        ));
+        );
+        DefaultTableModel model = (DefaultTableModel) tblProdutosVenda.getModel();
+        model.addRow(new Object[]{description, price, quantity, discount});
+        vendas.add(venda);
     }//GEN-LAST:event_btnAddProdutoActionPerformed
 
     private void btnEfetuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfetuarVendaActionPerformed
-
+        MockComanda mock = new MockComanda();
+        mock.inserir(new Comanda(
+                vendas
+        ));
     }//GEN-LAST:event_btnEfetuarVendaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

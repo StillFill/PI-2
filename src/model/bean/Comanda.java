@@ -7,8 +7,8 @@ public class Comanda {
     public ArrayList<Venda> vendas = new ArrayList<Venda>();
     public String comandaId = "";
     public Date dataCriada;
-    public Comanda(ArrayList<Venda> venda){
+    public Comanda(ArrayList<Venda> vendas){
         this.dataCriada = new Date();
-        this.vendas = venda;
+        this.vendas = vendas;
     }
 }
