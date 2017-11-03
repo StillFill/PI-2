@@ -138,8 +138,10 @@ public class InternalFormConsultarProduto extends javax.swing.JInternalFrame {
 
         MockProduto mock = new MockProduto();
         ArrayList<Produto> resultado = mock.consultar(type, id);
+        System.out.println(resultado.get(0));
+        DefaultTableModel model = (DefaultTableModel) tabelaResultadoProduto.getModel();
+        model.setRowCount(0);
         for (int i = 0; i < resultado.size(); i++) {
-            DefaultTableModel model = (DefaultTableModel) tabelaResultadoProduto.getModel();
             model.addRow(new Object[]{resultado.get(i).description, resultado.get(i).type, resultado.get(i).colection, resultado.get(i).quantity});
         }
     }//GEN-LAST:event_btnConsultarProdutoActionPerformed
@@ -239,7 +241,6 @@ public class InternalFormConsultarProduto extends javax.swing.JInternalFrame {
             vender.txtPreco.setText(Double.toString(preco));
             tela.fecharPainel();
         }
-
     }//GEN-LAST:event_tabelaResultadoProdutoMouseClicked
 
 

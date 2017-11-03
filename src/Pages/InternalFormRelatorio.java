@@ -41,10 +41,7 @@ public class InternalFormRelatorio extends javax.swing.JInternalFrame {
 
         tblRelatorio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"55", "Mauricio", "R$5,00", "3", "R$5,00"},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Descrição", "Preço", "Quantidade", "Desconto"
@@ -104,6 +101,6 @@ public class InternalFormRelatorio extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblRelatorio;
+    public javax.swing.JTable tblRelatorio;
     // End of variables declaration//GEN-END:variables
 }

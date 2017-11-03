@@ -5,7 +5,15 @@
  */
 package Pages;
 
+import connection.MockComanda;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
+import model.bean.Comanda;
+import model.bean.Venda;
 
 /**
  *
@@ -123,6 +131,19 @@ public class InternalFormModal extends javax.swing.JInternalFrame {
         this.dispose();
         tela.openFrameInCenter(relatorio);
         relatorio.show();
+        
+        Date initialDate = new Date(txtDataInicial.getText());
+        Date dateBefore = new Date(initialDate.getTime() + 30 * 24 * 3600 * 1000l);
+        MockComanda mock = new MockComanda();
+        ArrayList<Comanda> resultado = mock.procurarPorData(initialDate, dateBefore);
+        DefaultTableModel model = (DefaultTableModel) relatorio.tblRelatorio.getModel();
+        model.setRowCount(0);
+        for (int i = 0; i < resultado.size(); i++) {
+            for (int j = 0; j < resultado.get(i).vendas.size(); j++) {
+                Venda venda = resultado.get(i).vendas.get(j);
+                model.addRow(new Object[]{resultado.get(i).comandaId, venda.description, venda.price, venda.quantity, venda.discount});
+            }
+        }
     }//GEN-LAST:event_btnConsultarRelatorioActionPerformed
 
 

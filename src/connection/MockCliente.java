@@ -7,22 +7,30 @@ import model.bean.Cliente;
 public class MockCliente {
 
     static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-    int f = 1;
+    static int f = 1;
 
     public void inserir(Cliente cliente) {
-        cliente.id = f;
+        System.out.println("ID DE FORA! --> "+cliente.id);
+        boolean existe = false;
         int anterior = clientes.size();
-        clientes.add(cliente);
-        f++;
+        for (int i = 0; i < clientes.size(); i++) {
+            System.out.println("ID --> "+clientes.get(i).id);
+            if (cliente.id.equals(clientes.get(i).id)) {
+                clientes.set(i, cliente);
+                existe = true;
+            }
+        }
+
+        if (existe == false) {
+            cliente.id = Integer.toString(f);
+            clientes.add(cliente);
+            f++;
+        }
         if (clientes.size() > anterior) {
             JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
         } else {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar o cliente!");
+            JOptionPane.showMessageDialog(null, "Produto editado com sucesso");
         }
-    }
-
-    public void editar(Cliente cliente) {
-
     }
 
     public ArrayList<Cliente> consultar(String type, String id) {
@@ -41,5 +49,16 @@ public class MockCliente {
             }
         }
         return result;
+    }
+
+    public String acharId(String documentNumber) {
+        for (int i = 0; i < clientes.size(); i++) {
+            System.out.println(documentNumber);
+            System.out.println(clientes.get(i).documentNumber.equals(documentNumber));
+            if (clientes.get(i).documentNumber.equals(documentNumber)) {
+                return clientes.get(i).id;
+            }
+        }
+        return "";
     }
 }

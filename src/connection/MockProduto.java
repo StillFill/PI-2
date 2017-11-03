@@ -10,14 +10,23 @@ public class MockProduto {
     int f = 1;
 
     public void inserir(Produto produto) {
-        produto.id = Integer.toString(f);
+        boolean existe = false;
         int anterior = produtos.size();
-        produtos.add(produto);
-        f++;
+        for (int i = 0; i < produtos.size(); i++) {
+            if (produto.id.equals(produtos.get(i).id)) {
+                produtos.set(i, produto);
+                existe = true;
+            }
+        }
+        if (!existe) {
+            produto.id = Integer.toString(f);
+            produtos.add(produto);
+            f++;
+        }
         if (produtos.size() > anterior) {
-            JOptionPane.showMessageDialog(null, "Venda cadastrado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
         } else {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar a venda!");
+            JOptionPane.showMessageDialog(null, "Produto editado com sucesso");
         }
     }
 
