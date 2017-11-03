@@ -18,6 +18,8 @@ import model.bean.Venda;
  */
 public class InternalFormVender extends javax.swing.JInternalFrame {
 
+    boolean consultandoProduto = false;
+    boolean consultandoCliente = false;
     /**
      * Creates new form InternalFormVender
      */
@@ -92,10 +94,7 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
         tblProdutosVenda.setAutoCreateRowSorter(true);
         tblProdutosVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Descrição", "Quantidade", "Preço", "Desconto"
@@ -132,9 +131,10 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
             }
         });
 
-        lblCPFCliente.setText("CPF");
+        lblCPFCliente.setText("CPF:");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pages/lupa.png"))); // NOI18N
+        jButton1.setText("Cliente");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -142,6 +142,7 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
         });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pages/lupa.png"))); // NOI18N
+        jButton2.setText("Produto");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -154,20 +155,15 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
             painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelVendaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(painelVendaLayout.createSequentialGroup()
+                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelVendaLayout.createSequentialGroup()
                         .addComponent(lblNomeCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblCPFCliente)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelVendaLayout.createSequentialGroup()
-                        .addGap(0, 6, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelVendaLayout.createSequentialGroup()
+                        .addGap(0, 9, Short.MAX_VALUE)
                         .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(painelVendaLayout.createSequentialGroup()
                                 .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblDescricao)
@@ -175,15 +171,10 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
                                     .addComponent(lblPreco))
                                 .addGap(18, 18, 18)
                                 .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(painelVendaLayout.createSequentialGroup()
-                                        .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelVendaLayout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(btnAddProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelVendaLayout.createSequentialGroup()
+                                    .addGroup(painelVendaLayout.createSequentialGroup()
                                         .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -194,32 +185,47 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, Short.MAX_VALUE)
                                         .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(txtDesconto)
-                                            .addComponent(spinnerQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)))))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(20, 20, 20))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelVendaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEfetuarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(spinnerQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)))
+                                    .addGroup(painelVendaLayout.createSequentialGroup()
+                                        .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(painelVendaLayout.createSequentialGroup()
+                                                .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(lblCPFCliente))
+                                            .addGroup(painelVendaLayout.createSequentialGroup()
+                                                .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(89, 89, 89))))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelVendaLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnEfetuarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         painelVendaLayout.setVerticalGroup(
             painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelVendaLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
                 .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblNomeCliente)
-                        .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelVendaLayout.createSequentialGroup()
+                            .addGap(36, 36, 36)
+                            .addComponent(lblNomeCliente))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelVendaLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblCPFCliente)))
                 .addGap(18, 18, 18)
-                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblCodigo)
-                        .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCodigo)
+                    .addComponent(txtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(19, 19, 19)
                 .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDescricao)
                     .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,7 +239,7 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
                     .addComponent(txtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(btnAddProduto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEfetuarVenda)
@@ -265,14 +271,12 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
     private void btnAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProdutoActionPerformed
         MockVenda mock = new MockVenda();
 
-        String id = txtCodigoProduto.getText();
         String description = txtDescricaoProduto.getText();
         int quantity = (Integer) spinnerQuantidade.getValue();
         double price = Double.parseDouble(txtPreco.getText());
         double discount = Double.parseDouble(txtDesconto.getText());
 
         mock.inserir(new Venda(
-                id,
                 description,
                 price,
                 quantity,
@@ -283,10 +287,6 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
     private void btnEfetuarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfetuarVendaActionPerformed
 
     }//GEN-LAST:event_btnEfetuarVendaActionPerformed
-
-    private void txtCPFClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCPFClienteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         InternalFormConsultarCliente cliente = new InternalFormConsultarCliente();
@@ -302,7 +302,12 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
         this.getDesktopPane().add(produto);
         tela.openFrameInCenter(produto);
         produto.show();
+        produto.consultandoProduto = true;
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtCPFClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCPFClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -319,13 +324,13 @@ public class InternalFormVender extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblPreco;
     private javax.swing.JLabel lblQuantidade;
     private javax.swing.JPanel painelVenda;
-    private javax.swing.JSpinner spinnerQuantidade;
+    public javax.swing.JSpinner spinnerQuantidade;
     private javax.swing.JTable tblProdutosVenda;
-    private javax.swing.JFormattedTextField txtCPFCliente;
-    private javax.swing.JTextField txtCodigoProduto;
-    private javax.swing.JTextField txtDesconto;
-    private javax.swing.JTextField txtDescricaoProduto;
+    public javax.swing.JFormattedTextField txtCPFCliente;
+    public javax.swing.JTextField txtCodigoProduto;
+    public javax.swing.JTextField txtDesconto;
+    public javax.swing.JTextField txtDescricaoProduto;
     public javax.swing.JTextField txtNomeCliente;
-    private javax.swing.JTextField txtPreco;
+    public javax.swing.JTextField txtPreco;
     // End of variables declaration//GEN-END:variables
 }

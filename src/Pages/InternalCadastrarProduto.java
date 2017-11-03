@@ -480,7 +480,6 @@ public class InternalCadastrarProduto extends javax.swing.JInternalFrame {
                 movement,
                 collection
         ));
-        mock.mostrar();
     }//GEN-LAST:event_btnCadastrarProdutoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

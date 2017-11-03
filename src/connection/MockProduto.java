@@ -48,11 +48,4 @@ public class MockProduto {
         }
         return result;
     }
-    public void mostrar() {
-        System.out.println("-------------------");
-        for (int i = 0; i < produtos.size(); i++) {
-                System.out.println(produtos.get(i));
-        }
-        System.out.println("-------------------");
-    }
 }

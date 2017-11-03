@@ -187,7 +187,6 @@ public class InternalFormConsultarCliente extends javax.swing.JInternalFrame {
         this.getDesktopPane().add(cliente);
         this.dispose();
         cliente.show();
-        System.out.println(editing.complement);
         cliente.txtNomeCliente.setText(editing.name);
         cliente.txtNascimentoCliente.setText(editing.birthday);
         cliente.txtTelCliente.setText(editing.phoneNumber);
